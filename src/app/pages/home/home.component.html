@@ -1,0 +1,174 @@
+<!-- Header -->
+<header
+  class="bg-[#0D0D0D] text-white py-6 px-8 flex items-center justify-between shadow-lg"
+>
+  <!-- Logo -->
+  <div class="text-2xl font-bold">🏡 RealEstatePro</div>
+
+  <!-- Center Navigation -->
+  <nav class="hidden md:flex space-x-6 text-lg font-medium">
+    <a href="#" class="hover:text-indigo-400 transition">Home</a>
+    <a href="#" class="hover:text-indigo-400 transition">About Us</a>
+    <a href="#" class="hover:text-indigo-400 transition">Properties</a>
+    <a href="#" class="hover:text-indigo-400 transition">Services</a>
+  </nav>
+
+  <!-- Contact Us -->
+  <div>
+    <button
+      class="bg-indigo-600 hover:bg-indigo-500 transition px-6 py-2 rounded-md font-semibold"
+    >
+      Contact Us
+    </button>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section
+  class="home-hero bg-[#fff] text-white py-24 px-6 text-center rounded-lg shadow-md"
+>
+  <div
+    class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6"
+  >
+    <div>
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
+        Discover Your Dream Home
+      </h1>
+      <p class="text-lg md:text-xl text-gray-300 max-w-3xl mb-6">
+        Explore premium listings tailored for you in a sleek, modern experience.
+      </p>
+      <div class="flex gap-4 justify-center md:justify-start">
+        <button
+          class="bg-indigo-600 hover:bg-indigo-500 transition text-white font-semibold px-8 py-4 rounded-md shadow-lg"
+        >
+          Browse Listings
+        </button>
+        <button
+          class="bg-transparent border border-white hover:bg-white hover:text-indigo-600 transition text-white font-semibold px-8 py-4 rounded-md shadow-lg"
+        >
+          Learn More
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Unlock Property Value Cards Section -->
+<section
+  class="py-16 max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8"
+>
+  <div
+    *ngFor="let card of unlockCards"
+    class="bg-white p-6 rounded-lg shadow-lg text-center"
+  >
+    <h3 class="text-xl font-semibold mb-3">{{ card.title }}</h3>
+    <p class="text-gray-600">{{ card.description }}</p>
+  </div>
+</section>
+
+<!-- Featured Properties Section -->
+<section class="py-16 bg-gray-100 max-w-6xl mx-auto px-6">
+  <h2 class="text-3xl font-bold mb-8 text-center">Featured Properties</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <app-property-cards
+      *ngFor="let property of featuredProperties"
+      [property]="property"
+    ></app-property-cards>
+  </div>
+</section>
+
+<!-- What Our Clients Say Section -->
+
+<section class="py-16 bg-[#121212] text-white max-w-6xl mx-auto px-6">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-3xl font-bold">What Our Clients Say</h2>
+    <button
+      (click)="toggleTestimonials()"
+      class="text-indigo-400 hover:text-indigo-200 font-medium"
+    >
+      {{ showAllTestimonials ? "Show Less" : "View All Testimonials" }}
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div
+      *ngFor="let testimonial of visibleTestimonials"
+      class="p-6 bg-[#1A1A1A] rounded-2xl shadow-lg text-left flex flex-col"
+    >
+      <!-- Client Info -->
+      <div class="flex items-center gap-4 mb-4">
+        <img
+          [src]="testimonial.imageUrl"
+          alt="{{ testimonial.clientName }}"
+          class="w-14 h-14 rounded-full object-cover border border-gray-600"
+        />
+        <div>
+          <h3 class="text-lg font-semibold">{{ testimonial.clientName }}</h3>
+          <p class="text-sm text-gray-400">{{ testimonial.country }}</p>
+        </div>
+      </div>
+
+      <!-- Star Rating -->
+      <div class="flex items-center mb-4">
+        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+          <i
+            class="fas fa-star"
+            [ngClass]="
+              i < testimonial.rating ? 'text-yellow-400' : 'text-gray-600'
+            "
+          ></i>
+        </ng-container>
+      </div>
+
+      <!-- Testimonial Message -->
+      <p class="text-sm text-gray-300 italic">“{{ testimonial.message }}”</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-16 bg-[#1B1B1B] text-white max-w-6xl mx-auto px-6">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-3xl font-bold">Frequently Asked Questions</h2>
+    <button
+      (click)="toggleFaqs()"
+      class="text-indigo-400 hover:text-indigo-200 font-medium"
+    >
+      {{ showAllFaqs ? "Show Less" : "View All" }}
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div
+      *ngFor="let faq of visibleFaqs"
+      class="bg-[#262626] p-6 rounded-lg shadow-md"
+    >
+      <h3 class="text-lg font-semibold mb-2">{{ faq.question }}</h3>
+      <p class="text-sm text-gray-400">{{ faq.answer }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-[#0D0D0D] text-gray-400 py-12 px-6 mt-12">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+    <div>
+      <h4 class="text-white font-semibold mb-4">RealEstatePro</h4>
+      <p>Helping you find the property of your dreams with ease and trust.</p>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+      <ul class="space-y-2">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Properties</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Contact</h4>
+      <p>Email: inforealestatepro.com</p>
+      <p>Phone: +1 234 567 890</p>
+    </div>
+  </div>
+</footer>
